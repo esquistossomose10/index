@@ -124,6 +124,22 @@ footer p{opacity:.85;max-width:70ch}
 .lang select:hover{border-color:var(--sand)}
 .lang option{background:var(--deep);color:var(--on-deep)}
 
+/* fontes */
+.src-btn{font:inherit;font-weight:700;margin-top:18px;padding:10px 18px;border-radius:8px;border:1px solid var(--sand);background:transparent;color:var(--sand);cursor:pointer}
+.src-btn:hover{background:var(--sand);color:#1b1404}
+dialog.src{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:0;margin:auto;width:min(640px,calc(100% - 32px));max-height:85vh}
+dialog.src::backdrop{background:rgba(6,22,26,.72)}
+.src-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.src-head h3{margin:0}
+.src-x{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer}
+.src-x:hover{border-color:var(--river);color:var(--river)}
+.src-body{padding:20px 22px 24px;overflow-y:auto;max-height:calc(85vh - 80px)}
+.src-body p{color:var(--muted)}
+.src-body ol{padding-left:22px}
+.src-body li{margin-bottom:16px}
+.src-body li b{display:block;font-family:var(--head)}
+.src-body li a{word-break:break-all;font-size:.95rem}
+
 @media (max-width:640px){section{padding:48px 0}.nav ul{gap:14px}}
 </style>
 </head>
@@ -293,6 +309,7 @@ footer p{opacity:.85;max-width:70ch}
     <img src="https://www.unifeb.edu.br/img/logo-light-2.png" alt="Logo UNIFEB" class="footer-logo">
     <h3 data-i18n="ft.h3">Esquistossomose: conhecimento acessível</h3>
     <p data-i18n="ft.p">Conteúdo educativo, sem substituir a avaliação de um profissional de saúde. Em caso de sintomas ou dúvidas, procure a Unidade Básica de Saúde mais próxima.</p>
+    <button type="button" class="src-btn" id="srcBtn" data-i18n="src.btn">Fontes consultadas</button>
     <div class="lang">
       <label for="langSel" data-i18n="ft.lang">Idioma</label>
       <select id="langSel">
@@ -303,6 +320,26 @@ footer p{opacity:.85;max-width:70ch}
     </div>
   </div>
 </footer>
+
+<dialog class="src" id="srcDlg" aria-labelledby="srcTitle">
+  <div class="src-head">
+    <h3 id="srcTitle" data-i18n="src.h3">Fontes consultadas</h3>
+    <button type="button" class="src-x" id="srcClose" aria-label="Fechar" data-i18n-aria="src.close">×</button>
+  </div>
+  <div class="src-body">
+    <p data-i18n="src.p">Todo o conteúdo deste site foi elaborado a partir das fontes abaixo:</p>
+    <ol>
+      <li><b>Atlas Virtual de Parasitologia · UNIFESP</b>
+        <a href="https://atlasvirtualparasitologia.unifesp.br/ciclos/esquistossomose" target="_blank" rel="noopener noreferrer">atlasvirtualparasitologia.unifesp.br/ciclos/esquistossomose</a></li>
+      <li><b>Secretaria da Saúde da Bahia (SESAB)</b>
+        <a href="https://www.ba.gov.br/saude/sites/site-sesab/files/migracao_2024/arquivos/wp-content/uploads/2021/03/cardEsquistossomoseHospitais.pdf" target="_blank" rel="noopener noreferrer">ba.gov.br/saude · cardEsquistossomoseHospitais.pdf</a></li>
+      <li><b>Brasil Escola</b>
+        <a href="https://brasilescola.uol.com.br/doencas/esquistossomose.htm" target="_blank" rel="noopener noreferrer">brasilescola.uol.com.br/doencas/esquistossomose.htm</a></li>
+      <li><b>Secretaria de Estado de Saúde de Mato Grosso (SES-MT)</b>
+        <a href="https://www.saude.mt.gov.br/unidade/superintendencia-de-vigilancia-em-saude/1616/esquistossomose" target="_blank" rel="noopener noreferrer">saude.mt.gov.br · Esquistossomose</a></li>
+    </ol>
+  </div>
+</dialog>
 
 <script>
 (function(){
@@ -337,8 +374,8 @@ footer p{opacity:.85;max-width:70ch}
   function paint(){
     var dark=current()==='dark';
     var l=window.__lang||'pt';
-    sun.hidden=!dark;   /* no modo escuro, mostra o sol (clicar = ir para o claro) */
-    moon.hidden=dark;   /* no modo claro, mostra a lua (clicar = ir para o escuro) */
+    sun.hidden=!dark;
+    moon.hidden=dark;
     btn.setAttribute('aria-pressed',dark);
     btn.title=titles[l][dark?'dark':'light'];
   }
@@ -360,6 +397,14 @@ footer p{opacity:.85;max-width:70ch}
   });
 
   paint();
+})();
+
+/* janela de fontes */
+(function(){
+  var dlg=document.getElementById('srcDlg');
+  document.getElementById('srcBtn').addEventListener('click',function(){dlg.showModal();});
+  document.getElementById('srcClose').addEventListener('click',function(){dlg.close();});
+  dlg.addEventListener('click',function(e){if(e.target===dlg){dlg.close();}});
 })();
 
 /* seletor de idioma (padrão: português) */
@@ -444,7 +489,9 @@ footer p{opacity:.85;max-width:70ch}
     "faq.5a":"At the nearest Basic Health Unit. The exam and the medicine are provided by the SUS.",
     "ft.h3":"Schistosomiasis: accessible knowledge",
     "ft.p":"Educational content that does not replace the assessment of a health professional. If you have symptoms or questions, go to the nearest Basic Health Unit.",
-    "ft.lang":"Language"
+    "ft.lang":"Language",
+    "src.btn":"Sources consulted","src.h3":"Sources consulted","src.close":"Close",
+    "src.p":"All content on this site was prepared from the sources below:"
   },
   es:{
     "brand":"Esquistosomiasis",
@@ -517,12 +564,13 @@ footer p{opacity:.85;max-width:70ch}
     "faq.5a":"En la Unidad Básica de Salud más cercana. El examen y el medicamento son ofrecidos por el SUS.",
     "ft.h3":"Esquistosomiasis: conocimiento accesible",
     "ft.p":"Contenido educativo, que no sustituye la evaluación de un profesional de salud. En caso de síntomas o dudas, acuda a la Unidad Básica de Salud más cercana.",
-    "ft.lang":"Idioma"
+    "ft.lang":"Idioma",
+    "src.btn":"Fuentes consultadas","src.h3":"Fuentes consultadas","src.close":"Cerrar",
+    "src.p":"Todo el contenido de este sitio fue elaborado a partir de las fuentes a continuación:"
   }};
 
   var nodes=document.querySelectorAll('[data-i18n]');
   var aria=document.querySelectorAll('[data-i18n-aria]');
-  /* guarda o texto original em português */
   nodes.forEach(function(el){el._pt=el.innerHTML;});
   aria.forEach(function(el){el._pt=el.getAttribute('aria-label');});
   D.pt=null;
