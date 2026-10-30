@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Esquistossomose: informação para prevenir e tratar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f8f8; --surface:#ffffff; --ink:#10262b; --muted:#4b6168; --line:#d3e3e4;
+  --river:#0f6b7a; --deep:#0a2f38; --sand:#e0a93b; --alert:#a8402a; --on-deep:#eaf5f5;
+  --head:'Bricolage Grotesque','Trebuchet MS',Arial,sans-serif;
+  --body:'Source Sans 3',Arial,Helvetica,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#0a1a1e; --surface:#11272d; --ink:#e6f1f1; --muted:#9bb4b9; --line:#21404a;
+  --river:#5cc0d1; --deep:#06161a; --sand:#e8b955; --alert:#f08a6c; --on-deep:#eaf5f5; color-scheme:dark;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--deep);z-index:30}
+a{color:var(--river)}
+:focus-visible{outline:3px solid var(--sand);outline-offset:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--head);line-height:1.15;letter-spacing:-.01em}
+h2{font-size:clamp(1.7rem,4vw,2.3rem);margin-bottom:14px}
+h3{font-size:1.2rem;margin-bottom:8px}
+p{margin-bottom:14px;max-width:68ch}
+section{padding:64px 0}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--deep);color:var(--on-deep)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;overflow-x:auto}
+.brand{font-family:var(--head);font-weight:800;color:var(--on-deep);text-decoration:none;white-space:nowrap}
+.nav ul{display:flex;gap:18px;list-style:none}
+.nav ul a{color:var(--on-deep);text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;opacity:.85}
+.nav ul a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+
+/* botão de tema */
+.theme-btn{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(234,245,245,.5);background:transparent;color:var(--on-deep);cursor:pointer}
+.theme-btn:hover{background:rgba(234,245,245,.14);border-color:var(--sand);color:var(--sand)}
+.theme-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.theme-btn [hidden]{display:none}
+
+/* hero */
+.hero{background:var(--deep);color:var(--on-deep);padding:72px 0 0;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.6rem,9vw,5.6rem);font-weight:800;max-width:11ch;margin-bottom:20px}
+.hero p{font-size:1.2rem;max-width:52ch;opacity:.92}
+.hero .tag{display:inline-block;border:1px solid var(--sand);color:var(--sand);padding:4px 12px;border-radius:99px;font-weight:600;font-size:.9rem;margin-bottom:22px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 56px}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:700;text-decoration:none}
+.btn.main{background:var(--sand);color:#1b1404}
+.btn.alt{border:1px solid rgba(234,245,245,.5);color:var(--on-deep)}
+.waves{display:block;width:100%;height:60px}
+
+/* missão */
+.mission{background:var(--surface);border-block:1px solid var(--line)}
+.mission blockquote{font-family:var(--head);font-size:clamp(1.4rem,3.4vw,2.1rem);line-height:1.3;font-weight:500;max-width:34ch}
+.mission strong{font-weight:800;color:var(--river)}
+
+/* nomes populares */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 20px}
+.chips span{background:var(--surface);border:1px solid var(--line);padding:6px 14px;border-radius:99px;font-weight:600}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
+.fact{border-left:4px solid var(--river);background:var(--surface);padding:16px 18px;border-radius:0 8px 8px 0}
+.fact b{display:block;font-family:var(--head);margin-bottom:4px}
+
+/* ciclo */
+.cycle{background:var(--deep);color:var(--on-deep)}
+.cycle h2{color:var(--on-deep)}
+.cycle p{opacity:.9}
+.steps{list-style:none;margin-top:32px;border-left:2px dashed rgba(234,245,245,.35);padding-left:0;counter-reset:s}
+.steps li{position:relative;padding:0 0 28px 44px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:-17px;top:0;width:32px;height:32px;border-radius:50%;background:var(--sand);color:#1b1404;font-weight:800;display:grid;place-items:center;font-family:var(--head)}
+.steps li:last-child{padding-bottom:0}
+.steps b{font-family:var(--head);font-size:1.15rem;display:block}
+.steps span{opacity:.85}
+
+/* sintomas */
+.tabs{display:flex;gap:8px;margin:22px 0 18px;flex-wrap:wrap}
+.tabs button{font:inherit;font-weight:700;padding:10px 18px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--river);border-color:var(--river);color:#fff}
+:root[data-theme="dark"] .tabs button[aria-selected="true"]{color:#06161a}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px}
+.panel[hidden]{display:none}
+.panel ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.panel li{padding-left:22px;position:relative}
+.panel li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;background:var(--sand);border-radius:2px}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--sand);padding:14px 18px;border-radius:8px;margin-top:20px}
+
+/* tratamento */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px}
+.card.severe{border-top:4px solid var(--alert)}
+.card.ok{border-top:4px solid var(--river)}
+.card ul{padding-left:20px}
+.card li{margin-bottom:8px}
+
+/* prevenção */
+.prev{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:24px}
+.prev div{border-top:2px solid var(--river);padding-top:12px}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{cursor:pointer;font-family:var(--head);font-weight:700;font-size:1.1rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--river)}
+details[open] summary::after{content:"–"}
+details p{margin:12px 0 0}
+
+footer{background:var(--deep);color:var(--on-deep);padding:40px 0 48px;font-size:.95rem}
+footer img.footer-logo{height:36px;width:auto;margin-bottom:16px;display:block}
+footer p{opacity:.85;max-width:70ch}
+
+/* seletor de idioma */
+.lang{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:22px;padding-top:20px;border-top:1px solid rgba(234,245,245,.2)}
+.lang label{font-weight:600;opacity:.9}
+.lang select{font:inherit;font-weight:600;color:var(--on-deep);background:transparent;border:1px solid rgba(234,245,245,.5);border-radius:8px;padding:8px 12px;cursor:pointer}
+.lang select:hover{border-color:var(--sand)}
+.lang option{background:var(--deep);color:var(--on-deep)}
+
+@media (max-width:640px){section{padding:48px 0}.nav ul{gap:14px}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#topo" data-i18n="brand">Esquistossomose</a>
+    <nav aria-label="Seções" data-i18n-aria="nav.aria"><ul>
+      <li><a href="#sobre" data-i18n="nav.about">Sobre</a></li>
+      <li><a href="#ciclo" data-i18n="nav.cycle">Ciclo</a></li>
+      <li><a href="#sintomas" data-i18n="nav.symptoms">Sintomas</a></li>
+      <li><a href="#tratamento" data-i18n="nav.treatment">Tratamento</a></li>
+      <li><a href="#prevencao" data-i18n="nav.prevention">Prevenção</a></li>
+      <li><a href="#duvidas" data-i18n="nav.faq">Dúvidas</a></li>
+    </ul></nav>
+    <button type="button" class="theme-btn" id="themeBtn" aria-label="Alternar entre modo claro e escuro" data-i18n-aria="theme.aria" title="Alternar tema">
+      <svg id="iconMoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg id="iconSun" viewBox="0 0 24 24" aria-hidden="true" hidden><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="topo">
+<div class="hero">
+  <div class="wrap">
+    <span class="tag" data-i18n="hero.tag">Doença parasitária · Saúde pública</span>
+    <h1 data-i18n="hero.h1">Esquistossomose</h1>
+    <p data-i18n="hero.p">Conheça como a doença é transmitida, quais são os sintomas e como o tratamento é feito. Informação clara para ajudar a prevenir e combater a “barriga d’água”.</p>
+    <div class="hero-btns">
+      <a class="btn main" href="#sintomas" data-i18n="hero.btn1">Reconhecer os sintomas</a>
+      <a class="btn alt" href="#prevencao" data-i18n="hero.btn2">Como se prevenir</a>
+    </div>
+  </div>
+  <svg class="waves" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z" fill="var(--surface)"/>
+  </svg>
+</div>
+
+<section class="mission" aria-labelledby="missao">
+  <div class="wrap">
+    <h2 id="missao" data-i18n="mission.h2">Missão do projeto</h2>
+    <blockquote data-i18n="mission.q">Transformar a informação sobre a esquistossomose em <strong>conhecimento acessível</strong>, conscientizando a população sobre transmissão, sintomas e tratamentos, para <strong>auxiliar na prevenção e no combate à doença.</strong></blockquote>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="wrap">
+    <h2 data-i18n="about.h2">Sobre a esquistossomose</h2>
+    <p data-i18n="about.p1">A esquistossomose é uma doença parasitária diretamente relacionada ao saneamento precário, causada pelo verme <em>Schistosoma mansoni</em>. Pela sua prevalência, pela gravidade de suas formas clínicas e pela evolução da doença, ela é um importante problema de saúde pública.</p>
+    <p data-i18n="about.p2">No Brasil, é conhecida por vários nomes:</p>
+    <div class="chips"><span data-i18n="chip.1">Xistose</span><span data-i18n="chip.2">Barriga d’água</span><span data-i18n="chip.3">Doença dos caramujos</span></div>
+    <div class="facts">
+      <div class="fact" data-i18n="fact.1"><b>Agente causador</b>O verme <em>Schistosoma mansoni</em>.</div>
+      <div class="fact" data-i18n="fact.2"><b>Transmissor</b>Caramujos de água doce do gênero <em>Biomphalaria</em>.</div>
+      <div class="fact" data-i18n="fact.3"><b>Como se pega</b>Pelo contato da pele com água doce natural contaminada.</div>
+      <div class="fact" data-i18n="fact.4"><b>Não se transmite</b>De pessoa para pessoa por toque, abraço ou convívio.</div>
+    </div>
+  </div>
+</section>
+
+<section id="ciclo" class="cycle">
+  <div class="wrap">
+    <h2 data-i18n="cycle.h2">O ciclo de transmissão</h2>
+    <p data-i18n="cycle.p">A transmissão ocorre exclusivamente pelo contato com águas doces naturais contaminadas por larvas do parasita liberadas por caramujos. O ciclo segue cinco etapas:</p>
+    <ol class="steps">
+      <li data-i18n="step.1"><b>Eliminação de ovos</b><span>Uma pessoa infectada elimina os ovos do verme pelas fezes.</span></li>
+      <li data-i18n="step.2"><b>Contaminação da água</b><span>Sem saneamento básico, as fezes chegam a rios, lagos ou córregos.</span></li>
+      <li data-i18n="step.3"><b>Desenvolvimento no caramujo</b><span>Os ovos eclodem na água e liberam larvas que infectam caramujos de água doce do gênero <em>Biomphalaria</em>.</span></li>
+      <li data-i18n="step.4"><b>Liberação de cercárias</b><span>Após cerca de quatro semanas, as larvas deixam o caramujo na forma de cercárias e ficam livres na água.</span></li>
+      <li data-i18n="step.5"><b>Infecção humana</b><span>A pessoa se infecta quando a pele entra em contato com a água contaminada: as cercárias penetram no corpo.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="sintomas">
+  <div class="wrap">
+    <h2 data-i18n="sym.h2">Sintomas da doença</h2>
+    <p data-i18n="sym.p">O período de incubação (tempo entre a infecção e os primeiros sintomas) é de duas a seis semanas. Os sintomas variam conforme a fase, e muitas pessoas não apresentam sinais iniciais.</p>
+    <div class="tabs" role="tablist" aria-label="Fases da doença" data-i18n-aria="sym.tabs">
+      <button role="tab" id="t1" aria-selected="true" aria-controls="p1" data-i18n="sym.tab1">Fase aguda</button>
+      <button role="tab" id="t2" aria-selected="false" aria-controls="p2" data-i18n="sym.tab2">Fase crônica</button>
+    </div>
+    <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1">
+      <h3 data-i18n="sym.a.h3">Sintomas iniciais</h3>
+      <ul>
+        <li data-i18n="sym.a.1">Coceira e vermelhidão na pele, no local por onde o verme entrou (geralmente no dia do contato com a água)</li>
+        <li data-i18n="sym.a.2">Febre alta</li>
+        <li data-i18n="sym.a.3">Dor de cabeça e calafrios</li>
+        <li data-i18n="sym.a.4">Tosse seca e falta de apetite</li>
+        <li data-i18n="sym.a.5">Diarreia e dores musculares</li>
+      </ul>
+    </div>
+    <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+      <h3 data-i18n="sym.c.h3">Sintomas avançados</h3>
+      <ul>
+        <li data-i18n="sym.c.1">Diarreia constante alternada com prisão de ventre</li>
+        <li data-i18n="sym.c.2">Sangue nas fezes</li>
+        <li data-i18n="sym.c.3">Aumento do volume abdominal (“barriga d’água”), causado pelo crescimento do fígado e do baço</li>
+        <li data-i18n="sym.c.4">Emagrecimento e fraqueza acentuada</li>
+      </ul>
+    </div>
+    <div class="note" data-i18n="sym.note"><strong>Teve contato com rio, lagoa ou córrego e sentiu algum desses sintomas?</strong> Procure uma Unidade Básica de Saúde (UBS) e conte ao profissional sobre o contato com a água.</div>
+  </div>
+</section>
+
+<section id="diagnostico" style="padding-top:0">
+  <div class="wrap">
+    <h2 data-i18n="diag.h2">Diagnóstico</h2>
+    <p data-i18n="diag.p">O diagnóstico mais comum é o exame parasitológico de fezes, que procura ovos do verme. Ele é solicitado por um profissional de saúde e, em áreas com a doença, também pode ser oferecido em ações de busca ativa da população.</p>
+  </div>
+</section>
+
+<section id="tratamento" style="padding-top:0">
+  <div class="wrap">
+    <h2 data-i18n="tr.h2">Tratamento</h2>
+    <p data-i18n="tr.p">Nos casos simples, o tratamento é feito com o medicamento Praziquantel, geralmente em dose única supervisionada e distribuído gratuitamente pelo SUS.</p>
+    <div class="two">
+      <div class="card ok">
+        <h3 data-i18n="tr.ok.h3">Casos simples</h3>
+        <ul>
+          <li data-i18n="tr.ok.1"><strong>Praziquantel:</strong> remédio antiparasitário padrão para eliminar o verme.</li>
+          <li data-i18n="tr.ok.2"><strong>Dose única:</strong> a maioria dos casos simples se resolve com uma única tomada de comprimidos receitada pelo médico.</li>
+          <li data-i18n="tr.ok.3"><strong>Gratuito:</strong> fornecido pela rede pública de saúde.</li>
+        </ul>
+      </div>
+      <div class="card severe">
+        <h3 data-i18n="tr.sv.h3">Casos graves</h3>
+        <ul>
+          <li data-i18n="tr.sv.1"><strong>Internação:</strong> as formas avançadas da doença exigem hospitalização.</li>
+          <li data-i18n="tr.sv.2"><strong>Cirurgia:</strong> complicações severas podem precisar de procedimentos cirúrgicos.</li>
+          <li data-i18n="tr.sv.3"><strong>Sinais de gravidade:</strong> perda de peso, fraqueza forte e acúmulo de líquido no abdômen (barriga d’água).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note" data-i18n="tr.note">Nunca se automedique. A dose e a indicação do Praziquantel devem ser definidas por um profissional de saúde.</div>
+  </div>
+</section>
+
+<section id="prevencao" style="padding-top:0">
+  <div class="wrap">
+    <h2 data-i18n="pv.h2">Prevenção</h2>
+    <p data-i18n="pv.p">Interromper o ciclo é a forma mais eficaz de combater a doença. Cada etapa tem uma ação de proteção:</p>
+    <div class="prev">
+      <div data-i18n="pv.1"><h3>Saneamento básico</h3><p>Esgoto tratado impede que ovos cheguem à água. É a medida mais importante e de responsabilidade coletiva.</p></div>
+      <div data-i18n="pv.2"><h3>Evitar água suspeita</h3><p>Não entre, não lave roupa ou louça nem brinque em rios, lagos e córregos de áreas onde a doença ocorre.</p></div>
+      <div data-i18n="pv.3"><h3>Tratar quem está infectado</h3><p>Quem se trata deixa de eliminar ovos e reduz a contaminação da água para toda a comunidade.</p></div>
+      <div data-i18n="pv.4"><h3>Educação em saúde</h3><p>Compartilhar informação ajuda a comunidade a reconhecer os riscos e procurar atendimento cedo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas" style="padding-top:0">
+  <div class="wrap">
+    <h2 data-i18n="faq.h2">Perguntas frequentes</h2>
+    <details><summary data-i18n="faq.1q">Posso pegar esquistossomose de outra pessoa?</summary><p data-i18n="faq.1a">Não diretamente. A infecção só ocorre pelo contato da pele com água doce contaminada por cercárias, liberadas por caramujos infectados.</p></details>
+    <details><summary data-i18n="faq.2q">Piscina e água do mar transmitem a doença?</summary><p data-i18n="faq.2a">Não. Os caramujos transmissores vivem em água doce natural, como rios, lagoas e córregos. O risco está nesses ambientes, em locais com o parasita.</p></details>
+    <details><summary data-i18n="faq.3q">Dá para ter a doença e não sentir nada?</summary><p data-i18n="faq.3a">Sim. Muitas pessoas não apresentam sinais iniciais, e por isso o exame de fezes é importante após contato com água de risco.</p></details>
+    <details><summary data-i18n="faq.4q">A esquistossomose tem cura?</summary><p data-i18n="faq.4a">Sim. Com diagnóstico e tratamento adequados, a cura é possível, e o tratamento precoce evita as formas graves.</p></details>
+    <details><summary data-i18n="faq.5q">Onde faço o exame e o tratamento?</summary><p data-i18n="faq.5a">Na Unidade Básica de Saúde mais próxima. O exame e o medicamento são oferecidos pelo SUS.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="https://www.unifeb.edu.br/img/logo-light-2.png" alt="Logo UNIFEB" class="footer-logo">
+    <h3 data-i18n="ft.h3">Esquistossomose: conhecimento acessível</h3>
+    <p data-i18n="ft.p">Conteúdo educativo, sem substituir a avaliação de um profissional de saúde. Em caso de sintomas ou dúvidas, procure a Unidade Básica de Saúde mais próxima.</p>
+    <div class="lang">
+      <label for="langSel" data-i18n="ft.lang">Idioma</label>
+      <select id="langSel">
+        <option value="pt" selected>Português</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('[role="tab"]');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(o){
+        var on=o===t;
+        o.setAttribute('aria-selected',on);
+        document.getElementById(o.getAttribute('aria-controls')).hidden=!on;
+      });
+    });
+  });
+})();
+
+/* alternância de tema claro/escuro */
+(function(){
+  var root=document.documentElement;
+  var btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon');
+  var sun=document.getElementById('iconSun');
+  var titles={
+    pt:{dark:'Mudar para o modo claro',light:'Mudar para o modo escuro'},
+    en:{dark:'Switch to light mode',light:'Switch to dark mode'},
+    es:{dark:'Cambiar al modo claro',light:'Cambiar al modo oscuro'}
+  };
+
+  function current(){
+    var t=root.getAttribute('data-theme');
+    return t ? t : 'light';
+  }
+  function paint(){
+    var dark=current()==='dark';
+    var l=window.__lang||'pt';
+    sun.hidden=!dark;   /* no modo escuro, mostra o sol (clicar = ir para o claro) */
+    moon.hidden=dark;   /* no modo claro, mostra a lua (clicar = ir para o escuro) */
+    btn.setAttribute('aria-pressed',dark);
+    btn.title=titles[l][dark?'dark':'light'];
+  }
+  function apply(theme){
+    root.setAttribute('data-theme',theme);
+    paint();
+  }
+  window.__paintTheme=paint;
+
+  try{
+    var saved=localStorage.getItem('theme');
+    if(saved==='light'||saved==='dark'){root.setAttribute('data-theme',saved);}
+  }catch(e){}
+
+  btn.addEventListener('click',function(){
+    var next=current()==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+  });
+
+  paint();
+})();
+
+/* seletor de idioma (padrão: português) */
+(function(){
+  var sel=document.getElementById('langSel');
+  var htmlLang={pt:'pt-BR',en:'en',es:'es'};
+  var titleTxt={
+    pt:'Esquistossomose: informação para prevenir e tratar',
+    en:'Schistosomiasis: information to prevent and treat',
+    es:'Esquistosomiasis: información para prevenir y tratar'
+  };
+
+  var D={
+  en:{
+    "brand":"Schistosomiasis",
+    "nav.aria":"Sections",
+    "nav.about":"About","nav.cycle":"Cycle","nav.symptoms":"Symptoms","nav.treatment":"Treatment","nav.prevention":"Prevention","nav.faq":"FAQ",
+    "theme.aria":"Switch between light and dark mode",
+    "hero.tag":"Parasitic disease · Public health",
+    "hero.h1":"Schistosomiasis",
+    "hero.p":"Learn how the disease is transmitted, what the symptoms are and how treatment works. Clear information to help prevent and fight “water belly” (barriga d’água).",
+    "hero.btn1":"Recognize the symptoms","hero.btn2":"How to protect yourself",
+    "mission.h2":"Project mission",
+    "mission.q":"To turn information about schistosomiasis into <strong>accessible knowledge</strong>, raising public awareness of transmission, symptoms and treatment, to <strong>help prevent and fight the disease.</strong>",
+    "about.h2":"About schistosomiasis",
+    "about.p1":"Schistosomiasis is a parasitic disease directly linked to poor sanitation, caused by the worm <em>Schistosoma mansoni</em>. Because of its prevalence, the severity of its clinical forms and the way the disease progresses, it is an important public health problem.",
+    "about.p2":"In Brazil, it is known by several names:",
+    "chip.1":"Xistose","chip.2":"Water belly (barriga d’água)","chip.3":"Snail disease",
+    "fact.1":"<b>Causative agent</b>The worm <em>Schistosoma mansoni</em>.",
+    "fact.2":"<b>Carrier</b>Freshwater snails of the genus <em>Biomphalaria</em>.",
+    "fact.3":"<b>How it is contracted</b>Through skin contact with contaminated natural freshwater.",
+    "fact.4":"<b>Not transmitted</b>From person to person through touch, hugging or living together.",
+    "cycle.h2":"The transmission cycle",
+    "cycle.p":"Transmission occurs exclusively through contact with natural freshwater contaminated by parasite larvae released by snails. The cycle has five stages:",
+    "step.1":"<b>Release of eggs</b><span>An infected person passes the worm’s eggs in their feces.</span>",
+    "step.2":"<b>Water contamination</b><span>Without basic sanitation, feces reach rivers, lakes or streams.</span>",
+    "step.3":"<b>Development in the snail</b><span>The eggs hatch in the water and release larvae that infect freshwater snails of the genus <em>Biomphalaria</em>.</span>",
+    "step.4":"<b>Release of cercariae</b><span>After about four weeks, the larvae leave the snail as cercariae and are free in the water.</span>",
+    "step.5":"<b>Human infection</b><span>A person becomes infected when their skin comes into contact with contaminated water: the cercariae penetrate the body.</span>",
+    "sym.h2":"Symptoms of the disease",
+    "sym.p":"The incubation period (the time between infection and the first symptoms) is two to six weeks. Symptoms vary by stage, and many people have no early signs.",
+    "sym.tabs":"Stages of the disease",
+    "sym.tab1":"Acute phase","sym.tab2":"Chronic phase",
+    "sym.a.h3":"Early symptoms",
+    "sym.a.1":"Itching and redness of the skin where the worm entered (usually on the day of contact with the water)",
+    "sym.a.2":"High fever","sym.a.3":"Headache and chills","sym.a.4":"Dry cough and loss of appetite","sym.a.5":"Diarrhea and muscle aches",
+    "sym.c.h3":"Advanced symptoms",
+    "sym.c.1":"Constant diarrhea alternating with constipation",
+    "sym.c.2":"Blood in the stool",
+    "sym.c.3":"Swollen abdomen (“water belly”), caused by enlargement of the liver and spleen",
+    "sym.c.4":"Weight loss and marked weakness",
+    "sym.note":"<strong>Had contact with a river, lake or stream and felt any of these symptoms?</strong> Go to a Basic Health Unit (UBS) and tell the health professional about the contact with the water.",
+    "diag.h2":"Diagnosis",
+    "diag.p":"The most common diagnosis is the parasitological stool exam, which looks for the worm’s eggs. It is requested by a health professional and, in areas where the disease occurs, may also be offered in active screening campaigns for the population.",
+    "tr.h2":"Treatment",
+    "tr.p":"In simple cases, treatment uses the medicine Praziquantel, usually as a single supervised dose, provided free of charge by the SUS (Brazil’s public health system).",
+    "tr.ok.h3":"Simple cases",
+    "tr.ok.1":"<strong>Praziquantel:</strong> the standard antiparasitic medicine to eliminate the worm.",
+    "tr.ok.2":"<strong>Single dose:</strong> most simple cases are resolved with one dose of tablets prescribed by the doctor.",
+    "tr.ok.3":"<strong>Free:</strong> provided by the public health network.",
+    "tr.sv.h3":"Severe cases",
+    "tr.sv.1":"<strong>Hospitalization:</strong> advanced forms of the disease require hospital care.",
+    "tr.sv.2":"<strong>Surgery:</strong> severe complications may need surgical procedures.",
+    "tr.sv.3":"<strong>Warning signs:</strong> weight loss, severe weakness and fluid buildup in the abdomen (water belly).",
+    "tr.note":"Never self-medicate. The dose and indication of Praziquantel must be determined by a health professional.",
+    "pv.h2":"Prevention",
+    "pv.p":"Breaking the cycle is the most effective way to fight the disease. Each stage has a protective action:",
+    "pv.1":"<h3>Basic sanitation</h3><p>Treated sewage prevents eggs from reaching the water. It is the most important measure and a collective responsibility.</p>",
+    "pv.2":"<h3>Avoid suspect water</h3><p>Do not enter, wash clothes or dishes, or play in rivers, lakes and streams in areas where the disease occurs.</p>",
+    "pv.3":"<h3>Treat those who are infected</h3><p>People who get treated stop shedding eggs and reduce water contamination for the whole community.</p>",
+    "pv.4":"<h3>Health education</h3><p>Sharing information helps the community recognize risks and seek care early.</p>",
+    "faq.h2":"Frequently asked questions",
+    "faq.1q":"Can I catch schistosomiasis from another person?",
+    "faq.1a":"Not directly. Infection only occurs through skin contact with freshwater contaminated by cercariae, released by infected snails.",
+    "faq.2q":"Do swimming pools and sea water transmit the disease?",
+    "faq.2a":"No. The snails that transmit it live in natural freshwater, such as rivers, lakes and streams. The risk is in those environments, in places where the parasite is present.",
+    "faq.3q":"Is it possible to have the disease and feel nothing?",
+    "faq.3a":"Yes. Many people have no early signs, which is why a stool exam is important after contact with risky water.",
+    "faq.4q":"Is schistosomiasis curable?",
+    "faq.4a":"Yes. With proper diagnosis and treatment, a cure is possible, and early treatment prevents the severe forms.",
+    "faq.5q":"Where can I get tested and treated?",
+    "faq.5a":"At the nearest Basic Health Unit. The exam and the medicine are provided by the SUS.",
+    "ft.h3":"Schistosomiasis: accessible knowledge",
+    "ft.p":"Educational content that does not replace the assessment of a health professional. If you have symptoms or questions, go to the nearest Basic Health Unit.",
+    "ft.lang":"Language"
+  },
+  es:{
+    "brand":"Esquistosomiasis",
+    "nav.aria":"Secciones",
+    "nav.about":"Acerca de","nav.cycle":"Ciclo","nav.symptoms":"Síntomas","nav.treatment":"Tratamiento","nav.prevention":"Prevención","nav.faq":"Dudas",
+    "theme.aria":"Alternar entre modo claro y oscuro",
+    "hero.tag":"Enfermedad parasitaria · Salud pública",
+    "hero.h1":"Esquistosomiasis",
+    "hero.p":"Conozca cómo se transmite la enfermedad, cuáles son los síntomas y cómo se hace el tratamiento. Información clara para ayudar a prevenir y combatir la “barriga de agua” (barriga d’água).",
+    "hero.btn1":"Reconocer los síntomas","hero.btn2":"Cómo prevenirla",
+    "mission.h2":"Misión del proyecto",
+    "mission.q":"Transformar la información sobre la esquistosomiasis en <strong>conocimiento accesible</strong>, concienciando a la población sobre la transmisión, los síntomas y los tratamientos, para <strong>ayudar en la prevención y el combate de la enfermedad.</strong>",
+    "about.h2":"Acerca de la esquistosomiasis",
+    "about.p1":"La esquistosomiasis es una enfermedad parasitaria directamente relacionada con el saneamiento deficiente, causada por el gusano <em>Schistosoma mansoni</em>. Por su prevalencia, por la gravedad de sus formas clínicas y por la evolución de la enfermedad, es un importante problema de salud pública.",
+    "about.p2":"En Brasil, es conocida con varios nombres:",
+    "chip.1":"Xistose","chip.2":"Barriga de agua (barriga d’água)","chip.3":"Enfermedad de los caracoles",
+    "fact.1":"<b>Agente causante</b>El gusano <em>Schistosoma mansoni</em>.",
+    "fact.2":"<b>Transmisor</b>Caracoles de agua dulce del género <em>Biomphalaria</em>.",
+    "fact.3":"<b>Cómo se contrae</b>Por el contacto de la piel con agua dulce natural contaminada.",
+    "fact.4":"<b>No se transmite</b>De persona a persona por el tacto, el abrazo o la convivencia.",
+    "cycle.h2":"El ciclo de transmisión",
+    "cycle.p":"La transmisión ocurre exclusivamente por el contacto con aguas dulces naturales contaminadas por larvas del parásito liberadas por caracoles. El ciclo sigue cinco etapas:",
+    "step.1":"<b>Eliminación de huevos</b><span>Una persona infectada elimina los huevos del gusano en las heces.</span>",
+    "step.2":"<b>Contaminación del agua</b><span>Sin saneamiento básico, las heces llegan a ríos, lagos o arroyos.</span>",
+    "step.3":"<b>Desarrollo en el caracol</b><span>Los huevos eclosionan en el agua y liberan larvas que infectan caracoles de agua dulce del género <em>Biomphalaria</em>.</span>",
+    "step.4":"<b>Liberación de cercarias</b><span>Tras unas cuatro semanas, las larvas salen del caracol en forma de cercarias y quedan libres en el agua.</span>",
+    "step.5":"<b>Infección humana</b><span>La persona se infecta cuando la piel entra en contacto con el agua contaminada: las cercarias penetran en el cuerpo.</span>",
+    "sym.h2":"Síntomas de la enfermedad",
+    "sym.p":"El período de incubación (tiempo entre la infección y los primeros síntomas) es de dos a seis semanas. Los síntomas varían según la fase, y muchas personas no presentan señales iniciales.",
+    "sym.tabs":"Fases de la enfermedad",
+    "sym.tab1":"Fase aguda","sym.tab2":"Fase crónica",
+    "sym.a.h3":"Síntomas iniciales",
+    "sym.a.1":"Picazón y enrojecimiento de la piel, en el lugar por donde entró el gusano (generalmente el día del contacto con el agua)",
+    "sym.a.2":"Fiebre alta","sym.a.3":"Dolor de cabeza y escalofríos","sym.a.4":"Tos seca y falta de apetito","sym.a.5":"Diarrea y dolores musculares",
+    "sym.c.h3":"Síntomas avanzados",
+    "sym.c.1":"Diarrea constante alternada con estreñimiento",
+    "sym.c.2":"Sangre en las heces",
+    "sym.c.3":"Aumento del volumen abdominal (“barriga de agua”), causado por el crecimiento del hígado y del bazo",
+    "sym.c.4":"Adelgazamiento y debilidad acentuada",
+    "sym.note":"<strong>¿Tuvo contacto con un río, laguna o arroyo y sintió alguno de estos síntomas?</strong> Acuda a una Unidad Básica de Salud (UBS) y cuéntele al profesional sobre el contacto con el agua.",
+    "diag.h2":"Diagnóstico",
+    "diag.p":"El diagnóstico más común es el examen parasitológico de heces, que busca huevos del gusano. Lo solicita un profesional de salud y, en áreas con la enfermedad, también puede ofrecerse en acciones de búsqueda activa en la población.",
+    "tr.h2":"Tratamiento",
+    "tr.p":"En los casos simples, el tratamiento se hace con el medicamento Praziquantel, generalmente en dosis única supervisada y distribuido gratuitamente por el SUS (sistema público de salud de Brasil).",
+    "tr.ok.h3":"Casos simples",
+    "tr.ok.1":"<strong>Praziquantel:</strong> medicamento antiparasitario estándar para eliminar el gusano.",
+    "tr.ok.2":"<strong>Dosis única:</strong> la mayoría de los casos simples se resuelve con una sola toma de comprimidos recetada por el médico.",
+    "tr.ok.3":"<strong>Gratuito:</strong> proporcionado por la red pública de salud.",
+    "tr.sv.h3":"Casos graves",
+    "tr.sv.1":"<strong>Internación:</strong> las formas avanzadas de la enfermedad exigen hospitalización.",
+    "tr.sv.2":"<strong>Cirugía:</strong> las complicaciones severas pueden requerir procedimientos quirúrgicos.",
+    "tr.sv.3":"<strong>Señales de gravedad:</strong> pérdida de peso, debilidad fuerte y acumulación de líquido en el abdomen (barriga de agua).",
+    "tr.note":"Nunca se automedique. La dosis y la indicación del Praziquantel deben ser definidas por un profesional de salud.",
+    "pv.h2":"Prevención",
+    "pv.p":"Interrumpir el ciclo es la forma más eficaz de combatir la enfermedad. Cada etapa tiene una acción de protección:",
+    "pv.1":"<h3>Saneamiento básico</h3><p>El alcantarillado tratado impide que los huevos lleguen al agua. Es la medida más importante y de responsabilidad colectiva.</p>",
+    "pv.2":"<h3>Evitar agua sospechosa</h3><p>No entre, no lave ropa ni vajilla ni juegue en ríos, lagos y arroyos de áreas donde ocurre la enfermedad.</p>",
+    "pv.3":"<h3>Tratar a quien está infectado</h3><p>Quien se trata deja de eliminar huevos y reduce la contaminación del agua para toda la comunidad.</p>",
+    "pv.4":"<h3>Educación en salud</h3><p>Compartir información ayuda a la comunidad a reconocer los riesgos y buscar atención temprano.</p>",
+    "faq.h2":"Preguntas frecuentes",
+    "faq.1q":"¿Puedo contraer esquistosomiasis de otra persona?",
+    "faq.1a":"No directamente. La infección solo ocurre por el contacto de la piel con agua dulce contaminada por cercarias, liberadas por caracoles infectados.",
+    "faq.2q":"¿La piscina y el agua de mar transmiten la enfermedad?",
+    "faq.2a":"No. Los caracoles transmisores viven en agua dulce natural, como ríos, lagunas y arroyos. El riesgo está en esos ambientes, en lugares con el parásito.",
+    "faq.3q":"¿Se puede tener la enfermedad y no sentir nada?",
+    "faq.3a":"Sí. Muchas personas no presentan señales iniciales, y por eso el examen de heces es importante después del contacto con agua de riesgo.",
+    "faq.4q":"¿La esquistosomiasis tiene cura?",
+    "faq.4a":"Sí. Con diagnóstico y tratamiento adecuados, la cura es posible, y el tratamiento precoz evita las formas graves.",
+    "faq.5q":"¿Dónde me hago el examen y el tratamiento?",
+    "faq.5a":"En la Unidad Básica de Salud más cercana. El examen y el medicamento son ofrecidos por el SUS.",
+    "ft.h3":"Esquistosomiasis: conocimiento accesible",
+    "ft.p":"Contenido educativo, que no sustituye la evaluación de un profesional de salud. En caso de síntomas o dudas, acuda a la Unidad Básica de Salud más cercana.",
+    "ft.lang":"Idioma"
+  }};
+
+  var nodes=document.querySelectorAll('[data-i18n]');
+  var aria=document.querySelectorAll('[data-i18n-aria]');
+  /* guarda o texto original em português */
+  nodes.forEach(function(el){el._pt=el.innerHTML;});
+  aria.forEach(function(el){el._pt=el.getAttribute('aria-label');});
+  D.pt=null;
+
+  function setLang(l){
+    var dict=D[l]||null;
+    nodes.forEach(function(el){
+      var k=el.getAttribute('data-i18n');
+      el.innerHTML=(dict&&dict[k])?dict[k]:el._pt;
+    });
+    aria.forEach(function(el){
+      var k=el.getAttribute('data-i18n-aria');
+      el.setAttribute('aria-label',(dict&&dict[k])?dict[k]:el._pt);
+    });
+    document.title=titleTxt[l];
+    document.documentElement.lang=htmlLang[l];
+    window.__lang=l;
+    sel.value=l;
+    if(window.__paintTheme){window.__paintTheme();}
+  }
+
+  sel.addEventListener('change',function(){
+    setLang(sel.value);
+    try{localStorage.setItem('lang',sel.value);}catch(e){}
+  });
+
+  var start='pt';
+  try{
+    var s=localStorage.getItem('lang');
+    if(s==='en'||s==='es'||s==='pt'){start=s;}
+  }catch(e){}
+  setLang(start);
+})();
+</script>
+</body>
+</html>
