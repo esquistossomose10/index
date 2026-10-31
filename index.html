@@ -37,7 +37,8 @@ section{padding:64px 0}
 /* nav */
 header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--deep);color:var(--on-deep)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;overflow-x:auto}
-.brand{font-family:var(--head);font-weight:800;color:var(--on-deep);text-decoration:none;white-space:nowrap}
+.brand{display:flex;align-items:center;text-decoration:none}
+.brand img{height:28px;width:auto;display:block}
 .nav ul{display:flex;gap:18px;list-style:none}
 .nav ul a{color:var(--on-deep);text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;opacity:.85}
 .nav ul a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
@@ -148,7 +149,7 @@ dialog.src::backdrop{background:rgba(6,22,26,.72)}
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#topo" data-i18n="brand">Esquistossomose</a>
+    <a class="brand" href="#topo"><img src="789470.png" alt="Logo Esquistossomose"></a>
     <nav aria-label="Seções" data-i18n-aria="nav.aria"><ul>
       <li><a href="#sobre" data-i18n="nav.about">Sobre</a></li>
       <li><a href="#ciclo" data-i18n="nav.cycle">Ciclo</a></li>
