@@ -119,8 +119,9 @@ footer{background:var(--deep);color:var(--on-deep);padding:40px 0 48px;font-size
 footer img.footer-logo{height:36px;width:auto;margin-bottom:16px;display:block}
 footer p{opacity:.85;max-width:70ch}
 
-/* fontes */
-.src-btn{font:inherit;font-weight:700;margin-top:18px;padding:10px 18px;border-radius:8px;border:1px solid var(--sand);background:transparent;color:var(--sand);cursor:pointer}
+/* fontes e integrantes */
+.foot-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.src-btn{font:inherit;font-weight:700;padding:10px 18px;border-radius:8px;border:1px solid var(--sand);background:transparent;color:var(--sand);cursor:pointer}
 .src-btn:hover{background:var(--sand);color:#1b1404}
 dialog.src{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:0;margin:auto;width:min(640px,calc(100% - 32px));max-height:85vh}
 dialog.src::backdrop{background:rgba(6,22,26,.72)}
@@ -134,6 +135,8 @@ dialog.src::backdrop{background:rgba(6,22,26,.72)}
 .src-body li{margin-bottom:16px}
 .src-body li b{display:block;font-family:var(--head)}
 .src-body li a{word-break:break-all;font-size:.95rem}
+.team{list-style:none;display:grid;gap:10px;padding:0}
+.src-body .team li{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:8px;color:var(--ink);font-weight:600}
 
 @media (max-width:640px){section{padding:48px 0}.nav ul{gap:14px}}
 </style>
@@ -304,7 +307,10 @@ dialog.src::backdrop{background:rgba(6,22,26,.72)}
     <img src="https://www.unifeb.edu.br/img/logo-light-2.png" alt="Logo UNIFEB" class="footer-logo">
     <h3>Esquistossomose: conhecimento acessível</h3>
     <p>Conteúdo educativo, sem substituir a avaliação de um profissional de saúde. Em caso de sintomas ou dúvidas, procure a Unidade Básica de Saúde mais próxima.</p>
-    <button type="button" class="src-btn" id="srcBtn">Fontes consultadas</button>
+    <div class="foot-btns">
+      <button type="button" class="src-btn" id="srcBtn">Fontes consultadas</button>
+      <button type="button" class="src-btn" id="teamBtn">Integrantes do projeto</button>
+    </div>
   </div>
 </footer>
 
@@ -325,6 +331,25 @@ dialog.src::backdrop{background:rgba(6,22,26,.72)}
       <li><b>Secretaria de Estado de Saúde de Mato Grosso (SES-MT)</b>
         <a href="https://www.saude.mt.gov.br/unidade/superintendencia-de-vigilancia-em-saude/1616/esquistossomose" target="_blank" rel="noopener noreferrer">saude.mt.gov.br · Esquistossomose</a></li>
     </ol>
+  </div>
+</dialog>
+
+<dialog class="src" id="teamDlg" aria-labelledby="teamTitle">
+  <div class="src-head">
+    <h3 id="teamTitle">Integrantes do projeto</h3>
+    <button type="button" class="src-x" id="teamClose" aria-label="Fechar">×</button>
+  </div>
+  <div class="src-body">
+    <p>Pessoas que participaram da construção deste projeto:</p>
+    <ul class="team">
+      <li>Gabriela Andréia Santos de Oliveira</li>
+      <li>Lucas Miller Valença da Silva</li>
+      <li>Alexandre Guedes Faria</li>
+      <li>Guilherme Costanari Camilo</li>
+      <li>Maria Fernanda Ferreira da Cruz Ribeiro</li>
+      <li>Gabriel Victor da Silva Angeluzzi</li>
+      <li>Sofia Cristina Rodrigues Lopes</li>
+    </ul>
   </div>
 </dialog>
 
@@ -379,12 +404,16 @@ dialog.src::backdrop{background:rgba(6,22,26,.72)}
   paint();
 })();
 
-/* janela de fontes */
+/* janelas de fontes e integrantes */
 (function(){
-  var dlg=document.getElementById('srcDlg');
-  document.getElementById('srcBtn').addEventListener('click',function(){dlg.showModal();});
-  document.getElementById('srcClose').addEventListener('click',function(){dlg.close();});
-  dlg.addEventListener('click',function(e){if(e.target===dlg){dlg.close();}});
+  function setup(openId,dlgId,closeId){
+    var dlg=document.getElementById(dlgId);
+    document.getElementById(openId).addEventListener('click',function(){dlg.showModal();});
+    document.getElementById(closeId).addEventListener('click',function(){dlg.close();});
+    dlg.addEventListener('click',function(e){if(e.target===dlg){dlg.close();}});
+  }
+  setup('srcBtn','srcDlg','srcClose');
+  setup('teamBtn','teamDlg','teamClose');
 })();
 </script>
 </body>
